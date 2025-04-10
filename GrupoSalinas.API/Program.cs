@@ -12,6 +12,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // Registro de servicios
 builder.Services.AddScoped<ICursoService, CursoService>();
+builder.Services.AddScoped<IAlumnoService, AlumnoService>();
+builder.Services.AddScoped<IProfesorService, ProfesorService>();
+builder.Services.AddScoped<IAsignacionService, AsignacionService>();
+builder.Services.AddScoped<IConsultaService, ConsultaService>();
 
 // Configuración de Swagger con versión OpenAPI 3.0
 builder.Services.AddEndpointsApiExplorer();
