@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GrupoSalinas.API.Services.Implementaciones
 {
+    //Inyeccion de dependencias - ApplicationDbContext
     public class CursoService : ICursoService
     {
         private readonly ApplicationDbContext _context;
@@ -16,13 +17,16 @@ namespace GrupoSalinas.API.Services.Implementaciones
             _context = context;
         }
 
+        //Ejecutamos nuestro procedimiento almacenado sp_ObtenerCursos
         public async Task<List<Curso>> ObtenerCursos()
         {
             return await _context.Cursos
+                //Usamos FromSqlRaw para obtener  los datos directamente de la base de datos
                 .FromSqlRaw("EXEC sp_ObtenerCursos")
                 .ToListAsync();
         }
 
+        //Ejecutamos nuestro procedimiento almacenado sp_ObtenerCursoPorId
         public async Task<Curso> ObtenerCursoPorId(int id)
         {
             var cursos = await _context.Cursos
@@ -32,6 +36,7 @@ namespace GrupoSalinas.API.Services.Implementaciones
             return cursos.FirstOrDefault();
         }
 
+        //Ejecutamos nuestro procedimiento almacenado sp_InsertarCurso
         public async Task<bool> InsertarCurso(CursoDTO dto)
         {
             var sql = "EXEC sp_InsertarCurso @Nombre, @Descripcion, @Codigo";
@@ -46,6 +51,7 @@ namespace GrupoSalinas.API.Services.Implementaciones
             return rows > 0;
         }
 
+        //Ejecutamos nuestro procedimiento almacenado sp_ActualizarCurso
         public async Task<bool> ActualizarCurso(int id, CursoDTO dto)
         {
             var sql = "EXEC sp_ActualizarCurso @Id, @Nombre, @Descripcion, @Codigo";
@@ -61,6 +67,7 @@ namespace GrupoSalinas.API.Services.Implementaciones
             return rows > 0;
         }
 
+        //Ejecutamos nuestro procedimiento almacenado sp_EliminarCurso
         public async Task<bool> EliminarCurso(int id)
         {
             int rows = await _context.Database.ExecuteSqlRawAsync(

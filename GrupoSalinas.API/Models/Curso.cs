@@ -1,5 +1,6 @@
 ﻿namespace GrupoSalinas.API.Models
 {
+    //Modelo de datos para la tabla Cursos
     public class Curso
     {
         public int Id { get; set; }

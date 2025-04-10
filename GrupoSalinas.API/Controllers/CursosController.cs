@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace GrupoSalinas.API.Controllers
 {
     [ApiController]
+    //Definimos la ruta base para el controlador
     [Route("api/[controller]")]
     public class CursosController : ControllerBase
     {
+        //Inyeccion de cursoService por medio de ICursoService
         private readonly ICursoService _cursoService;
 
         public CursosController(ICursoService cursoService)
@@ -24,7 +26,7 @@ namespace GrupoSalinas.API.Controllers
             return Ok(cursos);
         }
 
-        // GET: api/Cursos/5
+        // GET: api/Cursos/1 [id]
         [HttpGet("{id}")]
         public async Task<ActionResult<Curso>> GetCurso(int id)
         {
@@ -45,7 +47,7 @@ namespace GrupoSalinas.API.Controllers
             return Ok("Curso insertado correctamente.");
         }
 
-        // PUT: api/Cursos/5
+        // PUT: api/Cursos/1 [id]
         [HttpPut("{id}")]
         public async Task<IActionResult> ActualizarCurso(int id, [FromBody] CursoDTO cursoDTO)
         {
@@ -55,7 +57,7 @@ namespace GrupoSalinas.API.Controllers
             return Ok("Curso actualizado correctamente.");
         }
 
-        // DELETE: api/Cursos/5
+        // DELETE: api/Cursos/1 [id]
         [HttpDelete("{id}")]
         public async Task<IActionResult> EliminarCurso(int id)
         {
